@@ -1,5 +1,7 @@
 FROM docker.io/centos:latest
 
+USER root
+
 RUN yum install -y gcc make openssl openssl-devel sqlite-devel bzip2 \
     && curl https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz -o /opt/Python-3.6.5.tar.xz --progress \
     && tar -xvf /opt/Python-3.6.5.tar.xz -C /opt \
