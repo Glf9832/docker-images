@@ -9,6 +9,9 @@ COPY ./docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
 
 ENV WEB_PORT 8000
+ENV RABBIT_HOST rabbitmq
+ENV RABBIT_PORT 5672
+
 EXPOSE $WEB_PORT
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
