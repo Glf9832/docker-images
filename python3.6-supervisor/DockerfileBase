@@ -1,0 +1,35 @@
+# add setuptools, pip, meld3, supervisor, virtualenv
+
+FROM python:3.6.8
+
+WORKDIR /root
+
+COPY ./requirements.txt /tmp/requirements.txt
+
+RUN rm -r /usr/local/bin/pip \
+    && cd ~ \
+    && wget https://files.pythonhosted.org/packages/1d/64/a18a487b4391a05b9c7f938b94a16d80305bf0369c6b0b9509e86165e1d3/setuptools-41.0.1.zip \
+    && wget https://files.pythonhosted.org/packages/93/ab/f86b61bef7ab14909bd7ec3cd2178feb0a1c86d451bc9bccd5a1aedcde5f/pip-19.1.1.tar.gz \
+    && unzip setuptools-41.0.1.zip \
+    && tar -xvf pip-19.1.1.tar.gz \
+# install setuptools
+    && cd setuptools-41.0.1 \
+    && /usr/bin/python2 setup.py install \
+    && cd ../ \
+# install pip
+    && cd pip-19.1.1 \
+    && /usr/bin/python2 setup.py install \
+    && cd ../ \
+# install supervisor and virtualenv
+    && /usr/local/bin/pip2 install supervisor \
+    && /usr/local/bin/pip2 install virtualenv \
+# init virtual env
+    && mkdir /cloud_cnas_project \
+    && cd /cloud_cnas_project \
+    && /usr/local/bin/virtualenv -p python3 tmenv \
+    && tmenv/bin/pip install -r /tmp/requirements.txt \
+# rm files
+    && rm -rf ~/* \
+    && rm /tmp/requirements.txt
+
+WORKDIR /cloud_cnas_project
