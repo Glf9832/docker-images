@@ -2,6 +2,8 @@
 
 FROM python:3.6.8
 
+ENV APP_HOME /cloud_cnas_project
+
 WORKDIR /root
 
 COPY ./requirements.txt /tmp/requirements.txt
@@ -24,12 +26,12 @@ RUN rm -r /usr/local/bin/pip \
     && /usr/local/bin/pip2 install supervisor \
     && /usr/local/bin/pip2 install virtualenv \
 # init virtual env
-    && mkdir /cloud_cnas_project \
-    && cd /cloud_cnas_project \
+    && mkdir ${APP_HOME} \
+    && cd ${APP_HOME} \
     && /usr/local/bin/virtualenv -p python3 tmenv \
     && tmenv/bin/pip install -r /tmp/requirements.txt \
 # rm files
     && rm -rf ~/* \
     && rm /tmp/requirements.txt
 
-WORKDIR /cloud_cnas_project
+WORKDIR ${APP_HOME}
