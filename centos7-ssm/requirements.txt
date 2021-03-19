@@ -15,7 +15,7 @@ daphne==2.2.0
 Django==1.11.23
 django-celery-beat==1.1.1
 django-celery-results==1.0.1
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 freeze==1.0.10
 hyperlink==18.0.0
 idna==2.7
